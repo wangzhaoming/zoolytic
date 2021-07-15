@@ -313,13 +313,13 @@ class MainWindow(stateComponent: ZooStateComponent, private val project: Project
     }
 
     inner class AddAction : AnAction("Add", "Add Zookeeper cluster node", ADD_ICON) {
-        override fun actionPerformed(e: AnActionEvent?) {
+        override fun actionPerformed(e: AnActionEvent) {
             addCluster()
         }
     }
 
     inner class RemoveAction : AnAction("Remove","Remove Zookeeper cluster node", REMOVE_ICON), AnAction.TransparentUpdate {
-        override fun actionPerformed(e: AnActionEvent?) {
+        override fun actionPerformed(e: AnActionEvent) {
             removeCluster()
         }
 
@@ -338,7 +338,7 @@ class MainWindow(stateComponent: ZooStateComponent, private val project: Project
     }
 
     inner class RefreshAction : AnAction("Refresh","Refresh Zookeeper cluster node", REFRESH_ICON) {
-        override fun actionPerformed(e: AnActionEvent?) {
+        override fun actionPerformed(e: AnActionEvent) {
             tree.selectionPaths.forEach {
                 val node = it.lastPathComponent
                 if (node is ZkTreeNode) {

@@ -24,7 +24,8 @@ class TableModel : DefaultTableModel() {
             addRow(arrayOf("Url", node.getNodeData().text))
         } else if (node is ZkTreeNode) {
             editable = true
-            arrayOf("Path", "Data", "Size", "Version", "Mod Date", "Stat").forEach { addRow(arrayOf(it, "")) }
+            arrayOf("Path", "Data", "czxid", "mzxid", "ctime", "mtime", "version", "cversion", "aversion", "ephemeralOwner",
+            "dataLength", "numChildren", "pzxid").forEach { addRow(arrayOf(it, "")) }
             val nodeData = node.getNodeData()
             with(nodeData) {
                 setValueAt(getFullPath(), 0, 1)
@@ -32,12 +33,19 @@ class TableModel : DefaultTableModel() {
                 setValueAt(data?.let { String(it) } ?: "", 1, 1)
                 LOG.info("reading data2")
                 if (stat == null) {
-                    (2..5).forEach { setValueAt("", it, 1) }
+                    (2..12).forEach { setValueAt("", it, 1) }
                 } else {
-                    setValueAt(stat?.dataLength, 2, 1)
-                    setValueAt(stat?.version, 3, 1)
-                    setValueAt(Date(stat!!.mtime), 4, 1)
-                    setValueAt(stat.toString(), 5, 1)
+                    setValueAt(stat?.czxid, 2, 1)
+                    setValueAt(stat?.mzxid, 3, 1)
+                    setValueAt(Date(stat!!.ctime), 4, 1)
+                    setValueAt(Date(stat!!.mtime), 5, 1)
+                    setValueAt(stat?.version, 6, 1)
+                    setValueAt(stat?.cversion, 7, 1)
+                    setValueAt(stat?.aversion, 8, 1)
+                    setValueAt(stat?.ephemeralOwner, 9, 1)
+                    setValueAt(stat?.dataLength, 10, 1)
+                    setValueAt(stat?.numChildren, 11, 1)
+                    setValueAt(stat?.pzxid, 12, 1)
                 }
                 LOG.info("reading data10")
             }
